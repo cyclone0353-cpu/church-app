@@ -37,7 +37,7 @@ const TEACHERS = [
 
 const CLASS_LIST = ["전체", "1반", "2반", "3반", "4반", "5반"];
 const GRADE_LIST = ["중1", "중2", "중3", "고1", "고2", "고3"];
-const STATUS_LIST = ["출석", "결석", "지각"];
+const STATUS_LIST = ["출석", "결석"];
 
 const CLASS_COLORS = {
   "1반": "#fee2e2",
@@ -48,34 +48,34 @@ const CLASS_COLORS = {
 };
 
 const DEFAULT_STUDENTS = [
-  { id: "s1", name: "이예강", className: "1반", grade: "고3", phone: "", parentPhone: "", isNew: false, note: "" },
-  { id: "s2", name: "전종성", className: "1반", grade: "고1", phone: "", parentPhone: "", isNew: false, note: "" },
-  { id: "s3", name: "김동언", className: "1반", grade: "중2", phone: "", parentPhone: "", isNew: false, note: "" },
-  { id: "s4", name: "김은율", className: "1반", grade: "중2", phone: "", parentPhone: "", isNew: false, note: "" },
-  { id: "s5", name: "강윤하", className: "1반", grade: "중2", phone: "", parentPhone: "", isNew: false, note: "" },
-  { id: "s6", name: "문지원", className: "1반", grade: "중2", phone: "", parentPhone: "", isNew: false, note: "" },
+  { id: "s1", name: "이예강", className: "1반", grade: "고3", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
+  { id: "s2", name: "전종성", className: "1반", grade: "고1", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
+  { id: "s3", name: "김동언", className: "1반", grade: "중2", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
+  { id: "s4", name: "김은율", className: "1반", grade: "중2", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
+  { id: "s5", name: "강윤하", className: "1반", grade: "중2", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
+  { id: "s6", name: "문지원", className: "1반", grade: "중2", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
 
-  { id: "s7", name: "이보나", className: "2반", grade: "고3", phone: "", parentPhone: "", isNew: false, note: "" },
-  { id: "s8", name: "전수미", className: "2반", grade: "고3", phone: "", parentPhone: "", isNew: false, note: "" },
-  { id: "s9", name: "정이안", className: "2반", grade: "고2", phone: "", parentPhone: "", isNew: false, note: "" },
-  { id: "s10", name: "윤성현", className: "2반", grade: "중2", phone: "", parentPhone: "", isNew: false, note: "" },
+  { id: "s7", name: "이보나", className: "2반", grade: "고3", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
+  { id: "s8", name: "전수미", className: "2반", grade: "고3", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
+  { id: "s9", name: "정이안", className: "2반", grade: "고2", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
+  { id: "s10", name: "윤성현", className: "2반", grade: "중2", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
 
-  { id: "s11", name: "백민위", className: "3반", grade: "중3", phone: "", parentPhone: "", isNew: false, note: "" },
-  { id: "s12", name: "박희윤", className: "3반", grade: "중3", phone: "", parentPhone: "", isNew: false, note: "" },
-  { id: "s13", name: "이승리", className: "3반", grade: "중3", phone: "", parentPhone: "", isNew: false, note: "" },
-  { id: "s14", name: "정소원", className: "3반", grade: "중1", phone: "", parentPhone: "", isNew: false, note: "" },
+  { id: "s11", name: "백민위", className: "3반", grade: "중3", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
+  { id: "s12", name: "박희윤", className: "3반", grade: "중3", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
+  { id: "s13", name: "이승리", className: "3반", grade: "중3", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
+  { id: "s14", name: "정소원", className: "3반", grade: "중1", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
 
-  { id: "s15", name: "김동제", className: "4반", grade: "중1", phone: "", parentPhone: "", isNew: false, note: "" },
-  { id: "s16", name: "이영준", className: "4반", grade: "중1", phone: "", parentPhone: "", isNew: false, note: "" },
-  { id: "s17", name: "천성현", className: "4반", grade: "중1", phone: "", parentPhone: "", isNew: false, note: "" },
-  { id: "s18", name: "박건률", className: "4반", grade: "고2", phone: "", parentPhone: "", isNew: false, note: "" },
+  { id: "s15", name: "김동제", className: "4반", grade: "중1", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
+  { id: "s16", name: "이영준", className: "4반", grade: "중1", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
+  { id: "s17", name: "천성현", className: "4반", grade: "중1", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
+  { id: "s18", name: "박건률", className: "4반", grade: "고2", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
 
-  { id: "s19", name: "이지훈", className: "5반", grade: "중3", phone: "", parentPhone: "", isNew: false, note: "" },
-  { id: "s20", name: "이우혁", className: "5반", grade: "중3", phone: "", parentPhone: "", isNew: false, note: "" },
-  { id: "s21", name: "이지현", className: "5반", grade: "중3", phone: "", parentPhone: "", isNew: false, note: "" },
-  { id: "s22", name: "백건위", className: "5반", grade: "고2", phone: "", parentPhone: "", isNew: false, note: "" },
-  { id: "s23", name: "이영웅", className: "5반", grade: "고1", phone: "", parentPhone: "", isNew: false, note: "" },
-  { id: "s24", name: "이경민", className: "5반", grade: "중2", phone: "", parentPhone: "", isNew: false, note: "" },
+  { id: "s19", name: "이지훈", className: "5반", grade: "중3", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
+  { id: "s20", name: "이우혁", className: "5반", grade: "중3", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
+  { id: "s21", name: "이지현", className: "5반", grade: "중3", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
+  { id: "s22", name: "백건위", className: "5반", grade: "고2", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
+  { id: "s23", name: "이영웅", className: "5반", grade: "고1", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
+  { id: "s24", name: "이경민", className: "5반", grade: "중2", phone: "", parentPhone: "", address: "", birthday: "", isNew: false, note: "" },
 ];
 
 const state = {
@@ -110,29 +110,9 @@ function getUpcomingSunday(baseDate = new Date()) {
   return `${y}-${m}-${date}`;
 }
 
-function getRecentSundays(count = 20) {
-  const sundays = [];
-  const today = new Date();
-  const currentSunday = new Date(today);
-  const day = currentSunday.getDay();
-  currentSunday.setDate(currentSunday.getDate() - day);
-
-  for (let i = 0; i < count; i++) {
-    const d = new Date(currentSunday);
-    d.setDate(currentSunday.getDate() - i * 7);
-
-    const y = d.getFullYear();
-    const m = String(d.getMonth() + 1).padStart(2, "0");
-    const date = String(d.getDate()).padStart(2, "0");
-    sundays.push(`${y}-${m}-${date}`);
-  }
-
-  return sundays;
-}
-
-function formatSundayLabel(dateStr) {
-  const [y, m, d] = dateStr.split("-");
-  return `${y}-${m}-${d} 주일`;
+function isSunday(dateStr) {
+  const d = new Date(dateStr);
+  return d.getDay() === 0;
 }
 
 function uid(prefix = "id") {
@@ -181,13 +161,12 @@ function stats() {
     checked: rows.length,
     present: rows.filter((r) => r.status === "출석").length,
     absent: rows.filter((r) => r.status === "결석").length,
-    late: rows.filter((r) => r.status === "지각").length,
   };
 }
 
 function monthlySummary() {
   const prefix = state.selectedDate.slice(0, 7);
-  let total = 0, present = 0, absent = 0, late = 0;
+  let total = 0, present = 0, absent = 0;
   Object.entries(state.attendanceByDate).forEach(([date, records]) => {
     if (!date.startsWith(prefix)) return;
     visibleStudents().forEach((student) => {
@@ -196,10 +175,9 @@ function monthlySummary() {
       total += 1;
       if (row.status === "출석") present += 1;
       if (row.status === "결석") absent += 1;
-      if (row.status === "지각") late += 1;
     });
   });
-  return { total, present, absent, late };
+  return { total, present, absent };
 }
 
 async function saveAll() {
@@ -266,6 +244,8 @@ function addNewFriend() {
     grade,
     phone,
     parentPhone,
+    address: "",
+    birthday: "",
     inviter,
     note,
     isNew: true,
@@ -349,7 +329,9 @@ function render() {
       button { padding: 10px 14px; border-radius: 10px; border: 1px solid #2563eb; background: #2563eb; color: white; cursor: pointer; font-weight: 700; }
       button.secondary, button.tab { background: white; color: #0f172a; border-color: #cbd5e1; }
       button.tab.active { background: #dbeafe; border-color: #2563eb; }
-      @media (max-width: 900px) { .student-row { grid-template-columns: 1fr; } }
+      @media (max-width: 900px) {
+        .student-row { grid-template-columns: 1fr; }
+      }
     </style>
 
     <div class="wrap">
@@ -369,14 +351,11 @@ function render() {
             </select>
           </div>
           <div>
-            <div class="label">주일</div>
-            <select id="date-input">
-              ${getRecentSundays(20).map(d => `
-                <option value="${d}" ${d === state.selectedDate ? "selected" : ""}>
-                  ${formatSundayLabel(d)}
-                </option>
-              `).join("")}
-            </select>
+            <div class="label" style="color:#dc2626;font-weight:700;">주일 날짜</div>
+            <input id="date-input" type="date" value="${esc(state.selectedDate)}" />
+            <div class="small" style="color:#dc2626;font-weight:700;margin-top:6px;">
+              주일(일요일)만 선택할 수 있습니다.
+            </div>
           </div>
           <div>
             <div class="label">반 선택</div>
@@ -398,7 +377,7 @@ function render() {
       <div class="grid4" style="margin-bottom:16px;">
         <div class="card"><div class="muted">현재 반 인원</div><div class="stat-number">${s.total}</div><div class="small">선택 기준</div></div>
         <div class="card"><div class="muted">체크 완료</div><div class="stat-number">${s.checked}</div><div class="small">${s.total ? Math.round((s.checked / s.total) * 100) : 0}% 입력</div></div>
-        <div class="card"><div class="muted">출석 / 지각</div><div class="stat-number">${s.present} / ${s.late}</div><div class="small">오늘 현황</div></div>
+        <div class="card"><div class="muted">출석</div><div class="stat-number">${s.present}</div><div class="small">오늘 현황</div></div>
         <div class="card"><div class="muted">결석</div><div class="stat-number">${s.absent}</div><div class="small">사유 기록 가능</div></div>
       </div>
 
@@ -415,7 +394,7 @@ function render() {
             <div class="split">
               <div>
                 <div class="section-title">출석 체크</div>
-                <div class="muted">출석, 결석, 지각을 체크하고 결석 이유를 적을 수 있어요.</div>
+                <div class="muted">출석, 결석을 체크하고 결석 이유를 적을 수 있어요.</div>
               </div>
               <div class="actions">
                 <button id="mark-all-present">현재 목록 전체 출석 처리</button>
@@ -453,14 +432,32 @@ function render() {
                         </select>
                       </div>
 
-                      <div>
-                        <div class="label">결석 이유</div>
-                        <input data-role="reason" data-student-id="${student.id}" value="${esc(record.reason || "")}" ${editable && record.status === "결석" ? "" : "disabled"} placeholder="예: 학원, 아픔, 가족 일정" />
-                      </div>
+                      ${
+                        record.status === "결석"
+                          ? `
+                            <div>
+                              <div class="label">결석 이유</div>
+                              <input
+                                data-role="reason"
+                                data-student-id="${student.id}"
+                                value="${esc(record.reason || "")}"
+                                ${editable ? "" : "disabled"}
+                                placeholder="예: 학원, 아픔, 가족 일정"
+                              />
+                            </div>
+                          `
+                          : `<div></div>`
+                      }
 
                       <div>
                         <div class="label">메모</div>
-                        <input data-role="memo" data-student-id="${student.id}" value="${esc(record.memo || "")}" ${editable ? "" : "disabled"} placeholder="추가 메모" />
+                        <input
+                          data-role="memo"
+                          data-student-id="${student.id}"
+                          value="${esc(record.memo || "")}"
+                          ${editable ? "" : "disabled"}
+                          placeholder="추가 메모"
+                        />
                       </div>
                     </div>
                   </div>
@@ -505,7 +502,7 @@ function render() {
                 <select id="new-grade">${GRADE_LIST.map(g => `<option value="${g}">${g}</option>`).join("")}</select>
               </div>
               <div><div class="label">학생 연락처</div><input id="new-phone" placeholder="010-..." /></div>
-              <div><div class="label">보호자 연락처</div><input id="new-parent-phone" placeholder="010-..." /></div>
+              <div><div class="label">학부모 연락처</div><input id="new-parent-phone" placeholder="010-..." /></div>
               <div><div class="label">인도자</div><input id="new-inviter" placeholder="인도자 이름" /></div>
               <div style="grid-column:1 / -1;"><div class="label">비고</div><textarea id="new-note" placeholder="메모"></textarea></div>
             </div>
@@ -541,7 +538,7 @@ function render() {
       ${state.activeTab === "students" ? `
         <div class="card">
           <div class="section-title">학생 관리</div>
-          <div class="muted">학생 목록과 연락처를 확인할 수 있어요.</div>
+          <div class="muted">학생 정보를 직접 수정할 수 있어요.</div>
 
           <div class="list" style="margin-top:16px;">
             ${state.students
@@ -549,18 +546,36 @@ function render() {
               .map(student => `
                 <div class="card" style="background:${CLASS_COLORS[student.className] || "#fff"};">
                   <div class="split">
-                    <div>
+                    <div style="width:100%;">
                       <div style="font-weight:800;font-size:18px;">${esc(student.name)}</div>
                       <div style="margin-top:8px;">
                         <span class="badge" style="background:${CLASS_COLORS[student.className] || "#eee"}; color:#111; border:1px solid rgba(0,0,0,0.08);">${esc(student.className)}</span>
                         <span class="badge" style="background:#f1f5f9; color:#111;">${esc(student.grade)}</span>
                         ${student.isNew ? `<span class="badge" style="background:#fde68a; color:#111;">새친구</span>` : ""}
                       </div>
-                      <div class="small" style="margin-top:8px;">
-                        학생 ${esc(student.phone || "-")} · 보호자 ${esc(student.parentPhone || "-")}
+
+                      <div class="grid2" style="margin-top:12px;">
+                        <div>
+                          <div class="label">학생 연락처</div>
+                          <input data-role="phone" data-student-id="${student.id}" value="${esc(student.phone || "")}" />
+                        </div>
+                        <div>
+                          <div class="label">학부모 연락처</div>
+                          <input data-role="parentPhone" data-student-id="${student.id}" value="${esc(student.parentPhone || "")}" />
+                        </div>
+                        <div>
+                          <div class="label">주소</div>
+                          <input data-role="address" data-student-id="${student.id}" value="${esc(student.address || "")}" />
+                        </div>
+                        <div>
+                          <div class="label">생일</div>
+                          <input type="date" data-role="birthday" data-student-id="${student.id}" value="${esc(student.birthday || "")}" />
+                        </div>
                       </div>
-                      ${student.note ? `<div class="small" style="margin-top:4px;">비고: ${esc(student.note)}</div>` : ""}
+
+                      ${student.note ? `<div class="small" style="margin-top:8px;">비고: ${esc(student.note)}</div>` : ""}
                     </div>
+
                     <div class="actions">
                       ${t.role === "admin" ? `<button class="secondary" data-role="delete-student" data-student-id="${student.id}">삭제</button>` : ""}
                     </div>
@@ -579,7 +594,6 @@ function render() {
             <div class="list" style="margin-top:16px;">
               <div class="card split"><span>총 체크 수</span><strong>${month.total}</strong></div>
               <div class="card split"><span>출석</span><strong>${month.present}</strong></div>
-              <div class="card split"><span>지각</span><strong>${month.late}</strong></div>
               <div class="card split"><span>결석</span><strong>${month.absent}</strong></div>
             </div>
           </div>
@@ -606,7 +620,13 @@ function bindEvents() {
   });
 
   document.getElementById("date-input")?.addEventListener("change", (e) => {
-    state.selectedDate = e.target.value;
+    const newDate = e.target.value;
+    if (!isSunday(newDate)) {
+      alert("주일(일요일)만 선택할 수 있어요.");
+      e.target.value = state.selectedDate;
+      return;
+    }
+    state.selectedDate = newDate;
     render();
   });
 
@@ -653,6 +673,18 @@ function bindEvents() {
 
   document.querySelectorAll("[data-role='toggle-new']").forEach((el) => {
     el.addEventListener("click", () => toggleNew(el.dataset.studentId));
+  });
+
+  ["phone", "parentPhone", "address", "birthday"].forEach((field) => {
+    document.querySelectorAll(`[data-role='${field}']`).forEach((el) => {
+      el.addEventListener("input", (e) => {
+        const id = e.target.dataset.studentId;
+        state.students = state.students.map((s) =>
+          s.id === id ? { ...s, [field]: e.target.value } : s
+        );
+        debounceSave();
+      });
+    });
   });
 }
 
