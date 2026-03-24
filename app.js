@@ -174,9 +174,10 @@ function debounceSave() {
   window.__saveTimer = setTimeout(saveAll, 300);
 }
 
-function updateAttendance(studentId, patch) {
+function updateAttendance(studentId, patch, shouldRender = true) {
   const dateKey = state.selectedDate;
   if (!state.attendanceByDate[dateKey]) state.attendanceByDate[dateKey] = {};
+
   state.attendanceByDate[dateKey][studentId] = {
     studentId,
     status: "출석",
@@ -187,7 +188,8 @@ function updateAttendance(studentId, patch) {
     ...(state.attendanceByDate[dateKey][studentId] || {}),
     ...patch,
   };
-  render();
+
+  if (shouldRender) render();
   debounceSave();
 }
 
@@ -580,13 +582,17 @@ function bindEvents() {
     el.addEventListener("change", (e) => updateAttendance(e.target.dataset.studentId, { status: e.target.value }));
   });
 
-  document.querySelectorAll("[data-role='reason']").forEach((el) => {
-    el.addEventListener("input", (e) => updateAttendance(e.target.dataset.studentId, { reason: e.target.value }));
+document.querySelectorAll("[data-role='reason']").forEach((el) => {
+  el.addEventListener("input", (e) => {
+    updateAttendance(e.target.dataset.studentId, { reason: e.target.value }, false);
   });
+});
 
-  document.querySelectorAll("[data-role='memo']").forEach((el) => {
-    el.addEventListener("input", (e) => updateAttendance(e.target.dataset.studentId, { memo: e.target.value }));
+document.querySelectorAll("[data-role='memo']").forEach((el) => {
+  el.addEventListener("input", (e) => {
+    updateAttendance(e.target.dataset.studentId, { memo: e.target.value }, false);
   });
+});
 
   document.querySelectorAll("[data-role='delete-student']").forEach((el) => {
     el.addEventListener("click", () => deleteStudent(el.dataset.studentId));
