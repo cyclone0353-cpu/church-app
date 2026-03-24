@@ -39,6 +39,14 @@ const CLASS_LIST = ["전체", "1반", "2반", "3반", "4반", "5반"];
 const GRADE_LIST = ["중1", "중2", "중3", "고1", "고2", "고3"];
 const STATUS_LIST = ["출석", "결석", "지각"];
 
+const CLASS_COLORS = {
+  "1반": "#fee2e2",
+  "2반": "#dbeafe",
+  "3반": "#dcfce7",
+  "4반": "#fef3c7",
+  "5반": "#ede9fe",
+};
+
 const DEFAULT_STUDENTS = [
   { id: "s1", name: "이예강", className: "1반", grade: "고3", phone: "", parentPhone: "", isNew: false, note: "" },
   { id: "s2", name: "전종성", className: "1반", grade: "고1", phone: "", parentPhone: "", isNew: false, note: "" },
@@ -75,7 +83,7 @@ const state = {
   students: [],
   attendanceByDate: {},
   selectedTeacherId: "t1",
-  selectedDate: todayString(),
+  selectedDate: getUpcomingSunday(),
   selectedClass: "전체",
   search: "",
   activeTab: "attendance",
@@ -88,6 +96,43 @@ function todayString() {
   const m = String(d.getMonth() + 1).padStart(2, "0");
   const day = String(d.getDate()).padStart(2, "0");
   return `${y}-${m}-${day}`;
+}
+
+function getUpcomingSunday(baseDate = new Date()) {
+  const d = new Date(baseDate);
+  const day = d.getDay();
+  const diff = day === 0 ? 0 : 7 - day;
+  d.setDate(d.getDate() + diff);
+
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const date = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${date}`;
+}
+
+function getRecentSundays(count = 20) {
+  const sundays = [];
+  const today = new Date();
+  const currentSunday = new Date(today);
+  const day = currentSunday.getDay();
+  currentSunday.setDate(currentSunday.getDate() - day);
+
+  for (let i = 0; i < count; i++) {
+    const d = new Date(currentSunday);
+    d.setDate(currentSunday.getDate() - i * 7);
+
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const date = String(d.getDate()).padStart(2, "0");
+    sundays.push(`${y}-${m}-${date}`);
+  }
+
+  return sundays;
+}
+
+function formatSundayLabel(dateStr) {
+  const [y, m, d] = dateStr.split("-");
+  return `${y}-${m}-${d} 주일`;
 }
 
 function uid(prefix = "id") {
@@ -295,7 +340,7 @@ function render() {
       .stack { display: grid; gap: 16px; }
       .split { display: flex; justify-content: space-between; gap: 12px; align-items: center; flex-wrap: wrap; }
       .actions { display: flex; gap: 8px; flex-wrap: wrap; }
-      .badge { display: inline-block; padding: 4px 8px; border-radius: 999px; background: #eef2ff; color: #3730a3; font-size: 12px; margin-right: 6px; }
+      .badge { display: inline-block; padding: 4px 8px; border-radius: 999px; font-size: 12px; margin-right: 6px; }
       .student-row { display: grid; grid-template-columns: minmax(220px,1.2fr) minmax(120px,150px) 1fr 1fr; gap: 12px; align-items: start; }
       .notice { background: #eff6ff; border-color: #bfdbfe; }
       input, select, textarea, button { font: inherit; }
@@ -324,8 +369,14 @@ function render() {
             </select>
           </div>
           <div>
-            <div class="label">날짜</div>
-            <input id="date-input" type="date" value="${esc(state.selectedDate)}" />
+            <div class="label">주일</div>
+            <select id="date-input">
+              ${getRecentSundays(20).map(d => `
+                <option value="${d}" ${d === state.selectedDate ? "selected" : ""}>
+                  ${formatSundayLabel(d)}
+                </option>
+              `).join("")}
+            </select>
           </div>
           <div>
             <div class="label">반 선택</div>
@@ -376,15 +427,17 @@ function render() {
               ${rows.map(student => {
                 const record = current[student.id] || { status: "출석", reason: "", memo: "" };
                 const editable = canEditStudent(student);
+                const bgColor = CLASS_COLORS[student.className] || "#ffffff";
+
                 return `
-                  <div class="card">
+                  <div class="card" style="background:${bgColor};">
                     <div class="student-row">
                       <div>
                         <div style="font-size:20px;font-weight:800;">${esc(student.name)}</div>
                         <div style="margin-top:8px;">
-                          <span class="badge">${esc(student.className)}</span>
-                          <span class="badge">${esc(student.grade)}</span>
-                          ${student.isNew ? `<span class="badge">새친구</span>` : ""}
+                          <span class="badge" style="background:${bgColor}; color:#111; border:1px solid rgba(0,0,0,0.08);">${esc(student.className)}</span>
+                          <span class="badge" style="background:#f1f5f9; color:#111;">${esc(student.grade)}</span>
+                          ${student.isNew ? `<span class="badge" style="background:#fde68a; color:#111;">새친구</span>` : ""}
                         </div>
                         <div class="small" style="margin-top:8px;">
                           ${esc(student.phone || "학생 연락처 미등록")}
@@ -423,7 +476,7 @@ function render() {
               ${absentees.length === 0
                 ? `<div class="small">현재 선택된 조건에서 결석자가 없습니다.</div>`
                 : absentees.map(({ student, record }) => `
-                    <div class="card">
+                    <div class="card" style="background:${CLASS_COLORS[student.className] || "#fff"};">
                       <div style="font-weight:800;">${esc(student.name)} · ${esc(student.className)}</div>
                       <div class="small" style="margin-top:6px;">사유: ${esc(record.reason || "미기재")}</div>
                       ${record.memo ? `<div class="small" style="margin-top:4px;">메모: ${esc(record.memo)}</div>` : ""}
@@ -466,7 +519,7 @@ function render() {
               ${newFriends.length === 0
                 ? `<div class="small">현재 새친구 표시된 학생이 없습니다.</div>`
                 : newFriends.map(student => `
-                    <div class="card">
+                    <div class="card" style="background:${CLASS_COLORS[student.className] || "#fff"};">
                       <div class="split">
                         <div>
                           <div style="font-weight:800;">${esc(student.name)} · ${esc(student.className)} · ${esc(student.grade)}</div>
@@ -494,14 +547,14 @@ function render() {
             ${state.students
               .filter(student => t.role === "admin" || student.className === t.className)
               .map(student => `
-                <div class="card">
+                <div class="card" style="background:${CLASS_COLORS[student.className] || "#fff"};">
                   <div class="split">
                     <div>
                       <div style="font-weight:800;font-size:18px;">${esc(student.name)}</div>
                       <div style="margin-top:8px;">
-                        <span class="badge">${esc(student.className)}</span>
-                        <span class="badge">${esc(student.grade)}</span>
-                        ${student.isNew ? `<span class="badge">새친구</span>` : ""}
+                        <span class="badge" style="background:${CLASS_COLORS[student.className] || "#eee"}; color:#111; border:1px solid rgba(0,0,0,0.08);">${esc(student.className)}</span>
+                        <span class="badge" style="background:#f1f5f9; color:#111;">${esc(student.grade)}</span>
+                        ${student.isNew ? `<span class="badge" style="background:#fde68a; color:#111;">새친구</span>` : ""}
                       </div>
                       <div class="small" style="margin-top:8px;">
                         학생 ${esc(student.phone || "-")} · 보호자 ${esc(student.parentPhone || "-")}
@@ -582,17 +635,17 @@ function bindEvents() {
     el.addEventListener("change", (e) => updateAttendance(e.target.dataset.studentId, { status: e.target.value }));
   });
 
-document.querySelectorAll("[data-role='reason']").forEach((el) => {
-  el.addEventListener("input", (e) => {
-    updateAttendance(e.target.dataset.studentId, { reason: e.target.value }, false);
+  document.querySelectorAll("[data-role='reason']").forEach((el) => {
+    el.addEventListener("input", (e) => {
+      updateAttendance(e.target.dataset.studentId, { reason: e.target.value }, false);
+    });
   });
-});
 
-document.querySelectorAll("[data-role='memo']").forEach((el) => {
-  el.addEventListener("input", (e) => {
-    updateAttendance(e.target.dataset.studentId, { memo: e.target.value }, false);
+  document.querySelectorAll("[data-role='memo']").forEach((el) => {
+    el.addEventListener("input", (e) => {
+      updateAttendance(e.target.dataset.studentId, { memo: e.target.value }, false);
+    });
   });
-});
 
   document.querySelectorAll("[data-role='delete-student']").forEach((el) => {
     el.addEventListener("click", () => deleteStudent(el.dataset.studentId));
