@@ -180,21 +180,34 @@ function monthlySummary() {
   return { total, present, absent };
 }
 
-async function saveAll() {
+function updateSaveMessage() {
+  const el = document.getElementById("save-message");
+  if (el) {
+    el.textContent = state.saveMessage;
+  }
+}
+
+async function saveAll(showAlert = false) {
   state.saveMessage = "저장 중...";
-  render();
+  updateSaveMessage();
+
   await setDoc(APP_DOC_REF, {
     students: state.students,
     attendanceByDate: state.attendanceByDate,
     updatedAt: new Date().toISOString(),
   });
+
   state.saveMessage = "저장 완료";
-  render();
+  updateSaveMessage();
+
+  if (showAlert) {
+    alert("저장되었습니다");
+  }
 }
 
 function debounceSave() {
   clearTimeout(window.__saveTimer);
-  window.__saveTimer = setTimeout(saveAll, 300);
+  window.__saveTimer = setTimeout(() => saveAll(false), 300);
 }
 
 function updateAttendance(studentId, patch, shouldRender = true) {
@@ -254,7 +267,7 @@ function addNewFriend() {
 
   state.activeTab = "students";
   render();
-  saveAll();
+  saveAll(false);
 }
 
 function deleteStudent(studentId) {
@@ -264,7 +277,7 @@ function deleteStudent(studentId) {
     delete state.attendanceByDate[dateKey][studentId];
   });
   render();
-  saveAll();
+  saveAll(false);
 }
 
 function toggleNew(studentId) {
@@ -272,7 +285,7 @@ function toggleNew(studentId) {
     s.id === studentId ? { ...s, isNew: !s.isNew } : s
   );
   render();
-  saveAll();
+  saveAll(false);
 }
 
 function exportJson() {
@@ -370,7 +383,7 @@ function render() {
         </div>
 
         <div style="margin-top:14px;" class="small">
-          로그인: ${state.user ? "연결됨" : "연결 중"} · 저장 상태: ${esc(state.saveMessage)}
+          로그인: ${state.user ? "연결됨" : "연결 중"} · 저장 상태: <span id="save-message">${esc(state.saveMessage)}</span>
         </div>
       </div>
 
@@ -398,6 +411,7 @@ function render() {
               </div>
               <div class="actions">
                 <button id="mark-all-present">현재 목록 전체 출석 처리</button>
+                <button id="save-button">저장</button>
                 <button id="export-json" class="secondary">내보내기</button>
               </div>
             </div>
@@ -648,6 +662,7 @@ function bindEvents() {
   });
 
   document.getElementById("mark-all-present")?.addEventListener("click", markAllPresent);
+  document.getElementById("save-button")?.addEventListener("click", () => saveAll(true));
   document.getElementById("export-json")?.addEventListener("click", exportJson);
   document.getElementById("add-new-friend")?.addEventListener("click", addNewFriend);
 
